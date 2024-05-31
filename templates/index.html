@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upload an Image</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background-image: url("https://images.unsplash.com/photo-1477554193778-9562c28588c0?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+      background-repeat: no-repeat;
+      background-size: cover;
+      height: 100vh;
+      padding: 20px;
+    }
+    .container {
+      max-width: 600px;
+      padding: 5rem 2rem;
+      background: rgba(255, 255, 255, 0.15);
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+      backdrop-filter: blur(9px);
+      -webkit-backdrop-filter: blur(9px);
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+    h1, h2 {
+      text-align: center;
+    }
+    form {
+      text-align: center;
+      margin-top: 20px;
+    }
+    input[type="file"] {
+      display: none;
+    }
+    label.upload-label {
+      background-color: #007bff;
+      color: #fff;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    label.upload-label:hover {
+      background-color: #0056b3;
+    }
+    .result {
+      display: none;
+    }
+    .result p {
+      font-size: 1.2rem;
+      color: black;
+    }
+    .back-link {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      text-decoration: none;
+      color: white;
+      padding: 1rem;
+      border-radius: 25px;
+      background-color: #007bff;
+      border: 1px solid #007bff;
+    }
+    .back-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+  <script>
+    function showResult() {
+      document.getElementById('uploadForm').style.display = 'none';
+      document.getElementById('result').style.display = 'block';
+    }
+  </script>
+</head>
+<body>
+  <div class="container">
+    <div id="uploadForm">
+      <h1>Upload an Image</h1>
+      <form method="post" enctype="multipart/form-data">
+        <label for="file" class="upload-label">Choose File</label>
+        <input type="file" name="file" id="file" onchange="form.submit()" />
+      </form>
+    </div>
+    <div id="result" class="result" style="display: {{ 'block' if prediction else 'none' }};">
+      <h2>Prediction Result</h2>
+      <p class="actual">Actual label: {{ actual_class }}</p>
+      <p class="prediction">Predicted label: {{ prediction }}</p>
+      <a class="back-link" href="/">Go Back</a>
+    </div>
+  </div>
+  <script>
+    // Show result section if prediction is present
+    {% if prediction %}
+    document.addEventListener("DOMContentLoaded", function() {
+      showResult();
+    });
+    {% endif %}
+  </script>
+</body>
+</html>
